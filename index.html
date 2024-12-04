@@ -69,12 +69,30 @@
     <!-- Contact Section -->
     <section id="contact">
         <h2>Contact Us</h2>
-        <form action="process-form.php" method="POST">
+        <form id="contact-form">
             <input type="text" id="name" name="name" placeholder="Your Name" required>
             <input type="email" id="email" name="email" placeholder="Your Email" required>
             <textarea id="message" name="message" placeholder="Your Message" required></textarea>
             <button type="submit">Send Message</button>
         </form>
+
+        <script>
+            document.getElementById('contact-form').addEventListener('submit', function(event) {
+                event.preventDefault();
+
+                fetch("https://script.google.com/macros/s/AKfycbyqIILQCW6_9YNHNxG5o1Px2XxVk1z6DLR5YVHT_rydtwYqwhB9KdVZWo8Tg4BI0ktppg/exec", { // Replace with your Web App URL
+                    method: "POST",
+                    body: JSON.stringify({
+                        name: document.getElementById('name').value,
+                        email: document.getElementById('email').value,
+                        message: document.getElementById('message').value
+                    })
+                }).then(response => response.text())
+                  .then(result => alert(result))
+                  .catch(error => alert("Error: " + error));
+            });
+        </script>
+
     </section>
 
     <!-- Footer Section -->
